@@ -115,7 +115,7 @@ def create_input_pipeline(input_queue, image_size, nrof_preprocess_threads, batc
             file_contents = tf.compat.v1.read_file(filename)
             image = tf.image.decode_image(file_contents, 3)
             image = tf.cond(get_control_flag(control[0], RANDOM_ROTATE),
-                            lambda: tf.py_func(random_rotate_image, [
+                            lambda: tf.compat.v1.py_func(random_rotate_image, [
                                                image], tf.uint8),
                             lambda: tf.identity(image))
             image = tf.cond(get_control_flag(control[0], RANDOM_CROP),
