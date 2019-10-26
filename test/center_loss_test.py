@@ -38,9 +38,9 @@ class CenterLossTest(unittest.TestCase):
 
         with tf.Graph().as_default():
 
-            features = tf.placeholder(tf.float32, shape=(
+            features = tf.compat.v1.placeholder(tf.float32, shape=(
                 batch_size, nrof_features), name='features')
-            labels = tf.placeholder(
+            labels = tf.compat.v1.placeholder(
                 tf.int32, shape=(batch_size,), name='labels')
 
             # Define center loss
@@ -54,7 +54,7 @@ class CenterLossTest(unittest.TestCase):
                 [3, -3],  [3, -1],  [3, 1],  [3, 3]
             ])
 
-            sess = tf.Session()
+            sess = tf.compat.v1.Session()
             with sess.as_default():
                 sess.run(tf.global_variables_initializer())
                 np.random.seed(seed=666)

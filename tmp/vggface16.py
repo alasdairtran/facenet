@@ -32,7 +32,7 @@ def load(filename, images):
     modelGraph['conv1_2'] = tf.nn.conv2d(modelGraph['relu1_1'], filter=vbbWeights(
         2), strides=[1, 1, 1, 1], padding='SAME')
     modelGraph['relu1_2'] = tf.nn.relu(modelGraph['conv1_2'] + vbbConstants(2))
-    modelGraph['pool1'] = tf.nn.max_pool(modelGraph['relu1_2'], ksize=[
+    modelGraph['pool1'] = tf.nn.max_pool2d(modelGraph['relu1_2'], ksize=[
                                          1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
     modelGraph['conv2_1'] = tf.nn.conv2d(
@@ -41,7 +41,7 @@ def load(filename, images):
     modelGraph['conv2_2'] = tf.nn.conv2d(modelGraph['relu2_1'], filter=vbbWeights(
         7), strides=[1, 1, 1, 1], padding='SAME')
     modelGraph['relu2_2'] = tf.nn.relu(modelGraph['conv2_2'] + vbbConstants(7))
-    modelGraph['pool2'] = tf.nn.max_pool(modelGraph['relu2_2'], ksize=[
+    modelGraph['pool2'] = tf.nn.max_pool2d(modelGraph['relu2_2'], ksize=[
                                          1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
     modelGraph['conv3_1'] = tf.nn.conv2d(modelGraph['pool2'], filter=vbbWeights(
@@ -56,7 +56,7 @@ def load(filename, images):
         14), strides=[1, 1, 1, 1], padding='SAME')
     modelGraph['relu3_3'] = tf.nn.relu(
         modelGraph['conv3_3'] + vbbConstants(14))
-    modelGraph['pool3'] = tf.nn.max_pool(modelGraph['relu3_3'], ksize=[
+    modelGraph['pool3'] = tf.nn.max_pool2d(modelGraph['relu3_3'], ksize=[
                                          1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
     modelGraph['conv4_1'] = tf.nn.conv2d(modelGraph['pool3'], filter=vbbWeights(
@@ -71,7 +71,7 @@ def load(filename, images):
         21), strides=[1, 1, 1, 1], padding='SAME')
     modelGraph['relu4_3'] = tf.nn.relu(
         modelGraph['conv4_3'] + vbbConstants(21))
-    modelGraph['pool4'] = tf.nn.max_pool(modelGraph['relu4_3'], ksize=[
+    modelGraph['pool4'] = tf.nn.max_pool2d(modelGraph['relu4_3'], ksize=[
                                          1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
     modelGraph['conv5_1'] = tf.nn.conv2d(modelGraph['pool4'], filter=vbbWeights(
@@ -86,7 +86,7 @@ def load(filename, images):
         28), strides=[1, 1, 1, 1], padding='SAME')
     modelGraph['relu5_3'] = tf.nn.relu(
         modelGraph['conv5_3'] + vbbConstants(28))
-    modelGraph['pool5'] = tf.nn.max_pool(modelGraph['relu5_3'], ksize=[
+    modelGraph['pool5'] = tf.nn.max_pool2d(modelGraph['relu5_3'], ksize=[
                                          1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
     modelGraph['resh1'] = tf.reshape(modelGraph['pool5'], [-1, 25088])

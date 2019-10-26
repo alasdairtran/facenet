@@ -44,9 +44,9 @@ def main(args):
     img_noise = np.random.uniform(
         size=(args.image_size, args.image_size, 3)) + 100.0
 
-    sess = tf.Session()
+    sess = tf.compat.v1.Session()
 
-    t_input = tf.placeholder(np.float32, shape=(
+    t_input = tf.compat.v1.placeholder(np.float32, shape=(
         args.image_size, args.image_size, 3), name='input')  # define the input tensor
     image_mean = 117.0
     t_preprocessed = tf.expand_dims(t_input-image_mean, 0)

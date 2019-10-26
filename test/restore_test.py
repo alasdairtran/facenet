@@ -64,7 +64,7 @@ class TrainTest(unittest.TestCase):
         saver = tf.train.Saver(tf.trainable_variables())
 
         # Launch the graph.
-        sess = tf.Session()
+        sess = tf.compat.v1.Session()
         sess.run(init)
 
         # Fit the line.
@@ -80,7 +80,7 @@ class TrainTest(unittest.TestCase):
 
         saver = tf.train.import_meta_graph(
             os.path.join(self.tmp_dir, "model_ex1.meta"))
-        sess = tf.Session()
+        sess = tf.compat.v1.Session()
         saver.restore(sess, os.path.join(self.tmp_dir, "model_ex1"))
 
         w_restored = sess.run('W:0')
@@ -122,7 +122,7 @@ class TrainTest(unittest.TestCase):
         saver = tf.train.Saver(tf.trainable_variables())
 
         # Launch the graph.
-        sess = tf.Session()
+        sess = tf.compat.v1.Session()
         sess.run(init)
 
         # Fit the line.
@@ -138,7 +138,7 @@ class TrainTest(unittest.TestCase):
 
         tf.train.import_meta_graph(
             os.path.join(self.tmp_dir, "model_ex1.meta"))
-        sess = tf.Session()
+        sess = tf.compat.v1.Session()
 
         print('------------------------------------------------------')
         for var in tf.global_variables():

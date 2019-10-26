@@ -158,11 +158,11 @@ def main(argv=None):  # pylint: disable=unused-argument
     # This is where training samples and labels are fed to the graph.
     # These placeholder nodes will be fed a batch of training data at each
     # training step using the {feed_dict} argument to the Run() call below.
-    train_data_node = tf.placeholder(
+    train_data_node = tf.compat.v1.placeholder(
         data_type(),
         shape=(BATCH_SIZE, IMAGE_SIZE, IMAGE_SIZE, NUM_CHANNELS))
-    train_labels_node = tf.placeholder(tf.int64, shape=(BATCH_SIZE,))
-    eval_data = tf.placeholder(
+    train_labels_node = tf.compat.v1.placeholder(tf.int64, shape=(BATCH_SIZE,))
+    eval_data = tf.compat.v1.placeholder(
         data_type(),
         shape=(EVAL_BATCH_SIZE, IMAGE_SIZE, IMAGE_SIZE, NUM_CHANNELS))
 
@@ -206,7 +206,7 @@ def main(argv=None):  # pylint: disable=unused-argument
         relu = tf.nn.relu(tf.nn.bias_add(conv, conv1_biases))
         # Max pooling. The kernel size spec {ksize} also follows the layout of
         # the data. Here we have a pooling window of 2, and a stride of 2.
-        pool = tf.nn.max_pool(relu,
+        pool = tf.nn.max_pool2d(relu,
                               ksize=[1, 2, 2, 1],
                               strides=[1, 2, 2, 1],
                               padding='SAME')
@@ -215,7 +215,7 @@ def main(argv=None):  # pylint: disable=unused-argument
                             strides=[1, 1, 1, 1],
                             padding='SAME')
         relu = tf.nn.relu(tf.nn.bias_add(conv, conv2_biases))
-        pool = tf.nn.max_pool(relu,
+        pool = tf.nn.max_pool2d(relu,
                               ksize=[1, 2, 2, 1],
                               strides=[1, 2, 2, 1],
                               padding='SAME')
@@ -307,7 +307,7 @@ def main(argv=None):  # pylint: disable=unused-argument
 
     # Create a local session to run the training.
     start_time = time.time()
-    with tf.Session() as sess:
+    with tf.compat.v1.Session() as sess:
         # Run all the initializers to prepare the trainable parameters.
         tf.global_variables_initializer().run()  # pylint: disable=no-member
         print('Initialized!')

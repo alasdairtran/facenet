@@ -21,15 +21,26 @@ cd ..
 PYTHONPATH=$(pwd)/src
 
 # Align the LFW dataset
-for N in {1..4}; do \
 python src/align/align_dataset_mtcnn.py \
-datasets/lfw/raw \
-datasets/lfw/lfw_mtcnnpy_160 \
---image_size 160 \
---margin 32 \
---random_order \
---gpu_memory_fraction 0.25 \
-& done
+    datasets/lfw/raw \
+    datasets/lfw/lfw_mtcnnpy_160 \
+    --image_size 160 \
+    --margin 32 \
+    --random_order \
+    --gpu_memory_fraction 0.25
+
+# Download the pretrained model from https://drive.google.com/open?id=1EXPBSXwTaqrSC0OhUdXNmKSh9qJUQ55-
+mkdir models && cd models
+unzip 20180402-114759.zip
+
+# Run the test
+python src/validate_on_lfw.py \
+    datasets/lfw/lfw_mtcnnpy_160 \
+    models/facenet/20180402-114759 \
+    --distance_metric 1 \
+    --use_flipped_images \
+    --subtract_mean \
+    --use_fixed_image_standardization
 ```
 
 This is a TensorFlow implementation of the face recognizer described in the paper

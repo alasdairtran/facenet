@@ -38,7 +38,7 @@ def main():
         graph_def = tf.GraphDef()
         graph_def.ParseFromString(f.read())
     # define the input tensor
-    t_input = tf.placeholder(np.float32, name='input')
+    t_input = tf.compat.v1.placeholder(np.float32, name='input')
     imagenet_mean = 117.0
     t_preprocessed = tf.expand_dims(t_input-imagenet_mean, 0)
     tf.import_graph_def(graph_def, {'input': t_preprocessed})
@@ -108,7 +108,7 @@ def main():
         '''Helper that transforms TF-graph generating function into a regular one.
         See "resize" function below.
         '''
-        placeholders = list(map(tf.placeholder, argtypes))
+        placeholders = list(map(tf.compat.v1.placeholder, argtypes))
 
         def wrap(f):
             out = f(*placeholders)
@@ -126,7 +126,7 @@ def main():
 
     def calc_grad_tiled(img, t_grad, tile_size=512):
         '''Compute the value of tensor t_grad over the image in a tiled way.
-        Random shifts are applied to the image to blur tile boundaries over 
+        Random shifts are applied to the image to blur tile boundaries over
         multiple iterations.'''
         sz = tile_size
         h, w = img.shape[:2]

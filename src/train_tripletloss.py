@@ -84,16 +84,16 @@ def main(args):
         global_step = tf.Variable(0, trainable=False)
 
         # Placeholder for the learning rate
-        learning_rate_placeholder = tf.placeholder(
+        learning_rate_placeholder = tf.compat.v1.placeholder(
             tf.float32, name='learning_rate')
 
-        batch_size_placeholder = tf.placeholder(tf.int32, name='batch_size')
+        batch_size_placeholder = tf.compat.v1.placeholder(tf.int32, name='batch_size')
 
-        phase_train_placeholder = tf.placeholder(tf.bool, name='phase_train')
+        phase_train_placeholder = tf.compat.v1.placeholder(tf.bool, name='phase_train')
 
-        image_paths_placeholder = tf.placeholder(
+        image_paths_placeholder = tf.compat.v1.placeholder(
             tf.string, shape=(None, 3), name='image_paths')
-        labels_placeholder = tf.placeholder(
+        labels_placeholder = tf.compat.v1.placeholder(
             tf.int64, shape=(None, 3), name='labels')
 
         input_queue = data_flow_ops.FIFOQueue(capacity=100000,
@@ -168,9 +168,9 @@ def main(args):
         summary_op = tf.summary.merge_all()
 
         # Start running operations on the Graph.
-        gpu_options = tf.GPUOptions(
+        gpu_options = tf.compat.v1.GPUOptions(
             per_process_gpu_memory_fraction=args.gpu_memory_fraction)
-        sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+        sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(gpu_options=gpu_options))
 
         # Initialize variables
         sess.run(tf.global_variables_initializer(),

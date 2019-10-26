@@ -46,7 +46,7 @@ def main(args):
 
     with tf.Graph().as_default():
 
-        with tf.Session() as sess:
+        with tf.compat.v1.Session() as sess:
 
             # Read the file containing the pairs used for testing
             pairs = lfw.read_pairs(os.path.expanduser(args.lfw_pairs))
@@ -55,15 +55,15 @@ def main(args):
             paths, actual_issame = lfw.get_paths(
                 os.path.expanduser(args.lfw_dir), pairs)
 
-            image_paths_placeholder = tf.placeholder(
+            image_paths_placeholder = tf.compat.v1.placeholder(
                 tf.string, shape=(None, 1), name='image_paths')
-            labels_placeholder = tf.placeholder(
+            labels_placeholder = tf.compat.v1.placeholder(
                 tf.int32, shape=(None, 1), name='labels')
-            batch_size_placeholder = tf.placeholder(
+            batch_size_placeholder = tf.compat.v1.placeholder(
                 tf.int32, name='batch_size')
-            control_placeholder = tf.placeholder(
+            control_placeholder = tf.compat.v1.placeholder(
                 tf.int32, shape=(None, 1), name='control')
-            phase_train_placeholder = tf.placeholder(
+            phase_train_placeholder = tf.compat.v1.placeholder(
                 tf.bool, name='phase_train')
 
             nrof_preprocess_threads = 4

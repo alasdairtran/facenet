@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Variational autoencoder based on the paper 
+"""Variational autoencoder based on the paper
 'Deep Feature Consistent Variational Autoencoder'
 (https://arxiv.org/pdf/1610.00291.pdf)
 """
@@ -41,7 +41,7 @@ class Vae(generative.models.vae_base.Vae):
     def encoder(self, images, is_training):
         activation_fn = leaky_relu  # tf.nn.relu
         weight_decay = 0.0
-        with tf.variable_scope('encoder'):
+        with tf.compat.v1.variable_scope('encoder'):
             with slim.arg_scope([slim.batch_norm],
                                 is_training=is_training):
                 with slim.arg_scope([slim.conv2d, slim.fully_connected],
@@ -83,7 +83,7 @@ class Vae(generative.models.vae_base.Vae):
     def decoder(self, latent_var, is_training):
         activation_fn = leaky_relu  # tf.nn.relu
         weight_decay = 0.0
-        with tf.variable_scope('decoder'):
+        with tf.compat.v1.variable_scope('decoder'):
             with slim.arg_scope([slim.batch_norm],
                                 is_training=is_training):
                 with slim.arg_scope([slim.conv2d, slim.fully_connected],

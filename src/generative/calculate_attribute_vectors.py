@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Calculate average latent variables (here called attribute vectors) 
+"""Calculate average latent variables (here called attribute vectors)
 for the different attributes in CelebA
 """
 from __future__ import absolute_import, division, print_function
@@ -112,9 +112,9 @@ def main(args):
 
         # Start running operations on the Graph
         gpu_memory_fraction = 1.0
-        gpu_options = tf.GPUOptions(
+        gpu_options = tf.compat.v1.GPUOptions(
             per_process_gpu_memory_fraction=gpu_memory_fraction)
-        sess = tf.Session(config=tf.ConfigProto(
+        sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(
             gpu_options=gpu_options, log_device_placement=False))
         sess.run(tf.global_variables_initializer())
         sess.run(tf.local_variables_initializer())

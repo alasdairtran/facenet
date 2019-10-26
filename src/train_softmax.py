@@ -117,15 +117,15 @@ def main(args):
         index_dequeue_op = index_queue.dequeue_many(
             args.batch_size*args.epoch_size, 'index_dequeue')
 
-        learning_rate_placeholder = tf.placeholder(
+        learning_rate_placeholder = tf.compat.v1.placeholder(
             tf.float32, name='learning_rate')
-        batch_size_placeholder = tf.placeholder(tf.int32, name='batch_size')
-        phase_train_placeholder = tf.placeholder(tf.bool, name='phase_train')
-        image_paths_placeholder = tf.placeholder(
+        batch_size_placeholder = tf.compat.v1.placeholder(tf.int32, name='batch_size')
+        phase_train_placeholder = tf.compat.v1.placeholder(tf.bool, name='phase_train')
+        image_paths_placeholder = tf.compat.v1.placeholder(
             tf.string, shape=(None, 1), name='image_paths')
-        labels_placeholder = tf.placeholder(
+        labels_placeholder = tf.compat.v1.placeholder(
             tf.int32, shape=(None, 1), name='labels')
-        control_placeholder = tf.placeholder(
+        control_placeholder = tf.compat.v1.placeholder(
             tf.int32, shape=(None, 1), name='control')
 
         nrof_preprocess_threads = 4
@@ -208,9 +208,9 @@ def main(args):
         summary_op = tf.summary.merge_all()
 
         # Start running operations on the Graph.
-        gpu_options = tf.GPUOptions(
+        gpu_options = tf.compat.v1.GPUOptions(
             per_process_gpu_memory_fraction=args.gpu_memory_fraction)
-        sess = tf.Session(config=tf.ConfigProto(
+        sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(
             gpu_options=gpu_options, log_device_placement=False))
         sess.run(tf.global_variables_initializer())
         sess.run(tf.local_variables_initializer())

@@ -38,7 +38,7 @@ import facenet
 
 def main(args):
     with tf.Graph().as_default():
-        with tf.Session() as sess:
+        with tf.compat.v1.Session() as sess:
             # Load the model metagraph and checkpoint
             print('Model directory: %s' % args.model_dir)
             meta_file, ckpt_file = facenet.get_model_filenames(
