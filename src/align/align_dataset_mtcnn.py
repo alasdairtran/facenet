@@ -29,7 +29,7 @@ import random
 import sys
 from time import sleep
 
-import cv2
+import imageio
 import numpy as np
 import tensorflow as tf
 
@@ -85,7 +85,7 @@ def main(args):
                 print(image_path)
                 if not os.path.exists(output_filename):
                     try:
-                        img = cv2.imread(image_path)
+                        img = imageio.imread(image_path)
                     except (IOError, ValueError, IndexError) as e:
                         errorMessage = '{}: {}'.format(image_path, e)
                         print(errorMessage)
@@ -134,7 +134,7 @@ def main(args):
                                 bb[3] = np.minimum(
                                     det[3]+args.margin/2, img_size[0])
                                 cropped = img[bb[1]:bb[3], bb[0]:bb[2], :]
-                                scaled = cv2.imresize(
+                                scaled = imageio.imresize(
                                     cropped, (args.image_size, args.image_size), interp='bilinear')
                                 nrof_successfully_aligned += 1
                                 filename_base, file_extension = os.path.splitext(
@@ -145,7 +145,7 @@ def main(args):
                                 else:
                                     output_filename_n = "{}{}".format(
                                         filename_base, file_extension)
-                                cv2.imsave(output_filename_n, scaled)
+                                imageio.imsave(output_filename_n, scaled)
                                 text_file.write('%s %d %d %d %d\n' % (
                                     output_filename_n, bb[0], bb[1], bb[2], bb[3]))
                         else:
