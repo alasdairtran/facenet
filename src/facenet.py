@@ -410,7 +410,7 @@ def load_model(model, input_map=None):
 
         saver = tf.compat.v1.train.import_meta_graph(os.path.join(
             model_exp, meta_file), input_map=input_map)
-        saver.restore(tf.get_default_session(),
+        saver.restore(tf.compat.v1.get_default_session(),
                       os.path.join(model_exp, ckpt_file))
 
 
