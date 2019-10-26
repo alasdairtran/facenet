@@ -145,7 +145,7 @@ def create_input_pipeline(input_queue, image_size, nrof_preprocess_threads, batc
 
 
 def get_control_flag(control, field):
-    return tf.equal(tf.mod(tf.floor_div(control, field), 2), 1)
+    return tf.equal(tf.math.mod(tf.math.floordiv(control, field), 2), 1)
 
 
 def _add_loss_summaries(total_loss):
