@@ -32,7 +32,7 @@ from tensorflow.python.ops import array_ops, control_flow_ops
 def conv(inpOp, nIn, nOut, kH, kW, dH, dW, padType, name, phase_train=True, use_batch_norm=True, weight_decay=0.0):
     with tf.compat.v1.variable_scope(name):
         def l2_regularizer(t): return l2_loss(t, weight=weight_decay)
-        kernel = tf.get_variable("weights", [kH, kW, nIn, nOut],
+        kernel = tf.compat.v1.get_variable("weights", [kH, kW, nIn, nOut],
                                  initializer=tf.truncated_normal_initializer(
                                      stddev=1e-1),
                                  regularizer=l2_regularizer, dtype=inpOp.dtype)
@@ -42,7 +42,7 @@ def conv(inpOp, nIn, nOut, kH, kW, dH, dW, padType, name, phase_train=True, use_
             conv_bn = batch_norm(cnv, phase_train)
         else:
             conv_bn = cnv
-        biases = tf.get_variable(
+        biases = tf.compat.v1.get_variable(
             "biases", [nOut], initializer=tf.constant_initializer(), dtype=inpOp.dtype)
         bias = tf.nn.bias_add(conv_bn, biases)
         conv1 = tf.nn.relu(bias)
@@ -52,11 +52,11 @@ def conv(inpOp, nIn, nOut, kH, kW, dH, dW, padType, name, phase_train=True, use_
 def affine(inpOp, nIn, nOut, name, weight_decay=0.0):
     with tf.compat.v1.variable_scope(name):
         def l2_regularizer(t): return l2_loss(t, weight=weight_decay)
-        weights = tf.get_variable("weights", [nIn, nOut],
+        weights = tf.compat.v1.get_variable("weights", [nIn, nOut],
                                   initializer=tf.truncated_normal_initializer(
                                       stddev=1e-1),
                                   regularizer=l2_regularizer, dtype=inpOp.dtype)
-        biases = tf.get_variable(
+        biases = tf.compat.v1.get_variable(
             "biases", [nOut], initializer=tf.constant_initializer(), dtype=inpOp.dtype)
         affine1 = tf.nn.relu_layer(inpOp, weights, biases)
     return affine1
