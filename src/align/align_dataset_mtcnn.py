@@ -135,7 +135,7 @@ def main(args):
                                 bb[3] = np.minimum(
                                     det[3]+args.margin/2, img_size[0])
                                 cropped = img[bb[1]:bb[3], bb[0]:bb[2], :]
-                                scaled = np.array(Image.fromarray(cropped).resize((args.image_size, args.image_size), PIL.Image.BILINEAR))
+                                scaled = np.array(Image.fromarray(cropped).resize((args.image_size, args.image_size), Image.BILINEAR))
                                 nrof_successfully_aligned += 1
                                 filename_base, file_extension = os.path.splitext(
                                     output_filename)
