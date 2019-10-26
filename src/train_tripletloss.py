@@ -116,7 +116,7 @@ def main(args):
                     image = tf.compat.v1.random_crop(
                         image, [args.image_size, args.image_size, 3])
                 else:
-                    image = tf.image.resize_image_with_crop_or_pad(
+                    image = tf.compat.v1.image.resize_image_with_crop_or_pad(
                         image, args.image_size, args.image_size)
                 if args.random_flip:
                     image = tf.image.random_flip_left_right(image)

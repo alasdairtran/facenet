@@ -120,7 +120,7 @@ def create_input_pipeline(input_queue, image_size, nrof_preprocess_threads, batc
                             lambda: tf.identity(image))
             image = tf.cond(get_control_flag(control[0], RANDOM_CROP),
                             lambda: tf.compat.v1.random_crop(image, image_size + (3,)),
-                            lambda: tf.image.resize_image_with_crop_or_pad(image, image_size[0], image_size[1]))
+                            lambda: tf.compat.v1.image.resize_image_with_crop_or_pad(image, image_size[0], image_size[1]))
             image = tf.cond(get_control_flag(control[0], RANDOM_FLIP),
                             lambda: tf.image.random_flip_left_right(image),
                             lambda: tf.identity(image))

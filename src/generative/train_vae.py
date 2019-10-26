@@ -80,7 +80,7 @@ def main(args):
         for _ in range(nrof_preprocess_threads):
             file_contents = tf.read_file(input_queue.dequeue())
             image = tf.image.decode_image(file_contents, channels=3)
-            image = tf.image.resize_image_with_crop_or_pad(
+            image = tf.compat.v1.image.resize_image_with_crop_or_pad(
                 image, args.input_image_size, args.input_image_size)
             image.set_shape((args.input_image_size, args.input_image_size, 3))
             image = tf.cast(image, tf.float32)

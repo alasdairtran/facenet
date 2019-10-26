@@ -79,7 +79,7 @@ def main(args):
             filename = input_queue[0]
             file_contents = tf.read_file(filename)
             image = tf.image.decode_image(file_contents, channels=3)
-            image = tf.image.resize_image_with_crop_or_pad(image, 160, 160)
+            image = tf.compat.v1.image.resize_image_with_crop_or_pad(image, 160, 160)
             #image = tf.image.resize_images(image, (64,64))
             image.set_shape((args.image_size, args.image_size, 3))
             attrib = input_queue[1]
