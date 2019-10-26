@@ -135,7 +135,7 @@ def create_input_pipeline(input_queue, image_size, nrof_preprocess_threads, batc
             images.append(image)
         images_and_labels_list.append([images, label])
 
-    image_batch, label_batch = tf.train.batch_join(
+    image_batch, label_batch = tf.compat.v1.train.batch_join(
         images_and_labels_list, batch_size=batch_size_placeholder,
         shapes=[image_size + (3,), ()], enqueue_many=True,
         capacity=4 * nrof_preprocess_threads * 100,
