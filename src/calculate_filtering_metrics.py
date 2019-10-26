@@ -60,7 +60,7 @@ def main(args):
             input_map = {'input': image_batch, 'phase_train': False}
             tf.import_graph_def(graph_def, input_map=input_map, name='net')
 
-        embeddings = tf.get_default_graph().get_tensor_by_name("net/embeddings:0")
+        embeddings = tf.compat.v1.get_default_graph().get_tensor_by_name("net/embeddings:0")
 
         with tf.compat.v1.Session() as sess:
             tf.train.start_queue_runners(sess=sess)

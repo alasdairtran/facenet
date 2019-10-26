@@ -236,9 +236,9 @@ def main(args):
             load_model(args.model_dir, meta_file, ckpt_file)
 
             # Get input and output tensors
-            images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
-            embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
-            phase_train_placeholder = tf.get_default_graph().get_tensor_by_name("phase_train:0")
+            images_placeholder = tf.compat.v1.get_default_graph().get_tensor_by_name("input:0")
+            embeddings = tf.compat.v1.get_default_graph().get_tensor_by_name("embeddings:0")
+            phase_train_placeholder = tf.compat.v1.get_default_graph().get_tensor_by_name("phase_train:0")
 
             image_size = images_placeholder.get_shape()[1]
             print("image_size:", image_size)

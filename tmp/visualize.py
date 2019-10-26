@@ -61,7 +61,7 @@ def main(args):
     # Restore the parameters
     saver.restore(sess, args.model_file)
 
-    layers = [op.name for op in tf.get_default_graph().get_operations()
+    layers = [op.name for op in tf.compat.v1.get_default_graph().get_operations()
               if op.type == 'Conv2D']
     feature_nums = {layer: int(T(layer).get_shape()[-1]) for layer in layers}
 
@@ -90,7 +90,7 @@ def main(args):
 
 def T(layer):
     '''Helper for getting layer output tensor'''
-    return tf.get_default_graph().get_tensor_by_name('%s:0' % layer)
+    return tf.compat.v1.get_default_graph().get_tensor_by_name('%s:0' % layer)
 
 
 def visstd(a, s=0.1):

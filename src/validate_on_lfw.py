@@ -85,7 +85,7 @@ def main(args):
             facenet.load_model(args.model, input_map=input_map)
 
             # Get output tensor
-            embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
+            embeddings = tf.compat.v1.get_default_graph().get_tensor_by_name("embeddings:0")
 #
             coord = tf.train.Coordinator()
             tf.train.start_queue_runners(coord=coord, sess=sess)
