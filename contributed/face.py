@@ -29,8 +29,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import pickle
 import os
+import pickle
 
 import cv2
 import numpy as np
@@ -40,10 +40,11 @@ from scipy import misc
 import align.detect_face
 import facenet
 
-
 gpu_memory_fraction = 0.3
-facenet_model_checkpoint = os.path.dirname(__file__) + "/../model_checkpoints/20170512-110547"
-classifier_model = os.path.dirname(__file__) + "/../model_checkpoints/my_classifier_1.pkl"
+facenet_model_checkpoint = os.path.dirname(
+    __file__) + "/../model_checkpoints/20170512-110547"
+classifier_model = os.path.dirname(
+    __file__) + "/../model_checkpoints/my_classifier_1.pkl"
 debug = False
 
 
@@ -110,7 +111,8 @@ class Encoder:
         prewhiten_face = facenet.prewhiten(face.image)
 
         # Run forward pass to calculate embeddings
-        feed_dict = {images_placeholder: [prewhiten_face], phase_train_placeholder: False}
+        feed_dict = {images_placeholder: [
+            prewhiten_face], phase_train_placeholder: False}
         return self.sess.run(embeddings, feed_dict=feed_dict)[0]
 
 
@@ -127,8 +129,10 @@ class Detection:
 
     def _setup_mtcnn(self):
         with tf.Graph().as_default():
-            gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=gpu_memory_fraction)
-            sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options, log_device_placement=False))
+            gpu_options = tf.GPUOptions(
+                per_process_gpu_memory_fraction=gpu_memory_fraction)
+            sess = tf.Session(config=tf.ConfigProto(
+                gpu_options=gpu_options, log_device_placement=False))
             with sess.as_default():
                 return align.detect_face.create_mtcnn(sess, None)
 
@@ -144,12 +148,18 @@ class Detection:
             face.bounding_box = np.zeros(4, dtype=np.int32)
 
             img_size = np.asarray(image.shape)[0:2]
-            face.bounding_box[0] = np.maximum(bb[0] - self.face_crop_margin / 2, 0)
-            face.bounding_box[1] = np.maximum(bb[1] - self.face_crop_margin / 2, 0)
-            face.bounding_box[2] = np.minimum(bb[2] + self.face_crop_margin / 2, img_size[1])
-            face.bounding_box[3] = np.minimum(bb[3] + self.face_crop_margin / 2, img_size[0])
-            cropped = image[face.bounding_box[1]:face.bounding_box[3], face.bounding_box[0]:face.bounding_box[2], :]
-            face.image = misc.imresize(cropped, (self.face_crop_size, self.face_crop_size), interp='bilinear')
+            face.bounding_box[0] = np.maximum(
+                bb[0] - self.face_crop_margin / 2, 0)
+            face.bounding_box[1] = np.maximum(
+                bb[1] - self.face_crop_margin / 2, 0)
+            face.bounding_box[2] = np.minimum(
+                bb[2] + self.face_crop_margin / 2, img_size[1])
+            face.bounding_box[3] = np.minimum(
+                bb[3] + self.face_crop_margin / 2, img_size[0])
+            cropped = image[face.bounding_box[1]:face.bounding_box[3],
+                            face.bounding_box[0]:face.bounding_box[2], :]
+            face.image = misc.imresize(
+                cropped, (self.face_crop_size, self.face_crop_size), interp='bilinear')
 
             faces.append(face)
 
