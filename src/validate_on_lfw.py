@@ -88,7 +88,7 @@ def main(args):
             embeddings = tf.compat.v1.get_default_graph().get_tensor_by_name("embeddings:0")
 #
             coord = tf.train.Coordinator()
-            tf.train.tf.compat.v1.train.start_queue_runners(coord=coord, sess=sess)
+            tf.compat.v1.train.start_queue_runners(coord=coord, sess=sess)
 
             evaluate(sess, eval_enqueue_op, image_paths_placeholder, labels_placeholder, phase_train_placeholder, batch_size_placeholder, control_placeholder,
                      embeddings, label_batch, paths, actual_issame, args.lfw_batch_size, args.lfw_nrof_folds, args.distance_metric, args.subtract_mean,

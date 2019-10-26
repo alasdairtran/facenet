@@ -63,7 +63,7 @@ def main(args):
         embeddings = tf.compat.v1.get_default_graph().get_tensor_by_name("net/embeddings:0")
 
         with tf.compat.v1.Session() as sess:
-            tf.train.tf.compat.v1.train.start_queue_runners(sess=sess)
+            tf.compat.v1.train.start_queue_runners(sess=sess)
 
             embedding_size = int(embeddings.get_shape()[1])
             nrof_batches = int(math.ceil(nrof_images / args.batch_size))
