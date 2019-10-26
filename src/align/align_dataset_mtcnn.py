@@ -29,6 +29,7 @@ import random
 import sys
 from time import sleep
 
+import imageio
 import numpy as np
 import tensorflow as tf
 from PIL import Image
