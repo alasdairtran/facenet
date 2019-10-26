@@ -119,7 +119,7 @@ def main(args):
         sess.run(tf.global_variables_initializer())
         sess.run(tf.local_variables_initializer())
         coord = tf.train.Coordinator()
-        tf.train.start_queue_runners(coord=coord, sess=sess)
+        tf.train.tf.compat.v1.train.start_queue_runners(coord=coord, sess=sess)
 
         with sess.as_default():
 
